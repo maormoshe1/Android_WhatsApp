@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WhatsApp</string>
+    <string name="edUsername">Userame</string>
+    <string name="edPassword">Password</string>
+    <string name="login_btnLogin">Login</string>
+    <string name="edDisplayName">Display name</string>
+    <string name="edPassword2">Re-enter password</string>
+    <string name="edSignup">Sign up</string>
 </resources>

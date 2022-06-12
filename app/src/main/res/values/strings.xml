@@ -6,4 +6,8 @@
     <string name="edDisplayName">Display name</string>
     <string name="edPassword2">Re-enter password</string>
     <string name="edSignup">Sign up</string>
+    <string name="edContactIdentifier">Contact\'s identifier</string>
+    <string name="edContactDN">Contact\'s display name</string>
+    <string name="edContactServer">Contact\'s server</string>
+    <string name="btnAddContact">Add Contact</string>
 </resources>

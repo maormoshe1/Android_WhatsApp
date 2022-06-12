@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/maorh/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
-        <entry key="..\:/Users/maorh/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_register.xml" value="0.1875" />
+        <entry key="..\:/Users/maorh/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_add_contact.xml" value="0.1" />
+        <entry key="..\:/Users/maorh/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_contact_list.xml" value="0.1" />
+        <entry key="..\:/Users/maorh/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/maorh/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_register.xml" value="0.1" />
       </map>
     </option>
   </component>

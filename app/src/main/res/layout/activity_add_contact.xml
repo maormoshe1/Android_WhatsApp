@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register"
-    android:background="@color/pink">
+    tools:context=".AddContact">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -18,60 +17,41 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editTextUN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:ems="10"
-            android:hint="@string/edUsername"
+            android:hint="@string/edContactIdentifier"
             android:inputType="textPersonName"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editTextDN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:ems="10"
-            android:hint="@string/edPassword"
-            android:inputType="textPassword"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/editTextTextPersonName5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:hint="@string/edPassword2"
+            android:hint="@string/edContactDN"
             android:inputType="textPersonName"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName7"
+            android:id="@+id/editTextServer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:ems="10"
-            android:hint="@string/edDisplayName"
+            android:hint="@string/edContactServer"
             android:inputType="textPersonName"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/signup"
+            android:id="@+id/addContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/edSignup" />
+            android:text="@string/btnAddContact" />
     </LinearLayout>
-    <Button
-        android:id="@+id/signupToLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="@string/login_btnLogin"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.219" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

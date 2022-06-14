@@ -14,16 +14,19 @@
         android:theme="@style/Theme.WhatsApp"
         tools:targetApi="31">
         <activity
-            android:name=".AddContact"
+            android:name=".pages.Chat"
             android:exported="false" />
         <activity
-            android:name=".ContactList"
+            android:name=".pages.AddContact"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".pages.ContactList"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".pages.Register"
+            android:exported="false" />
+        <activity
+            android:name=".pages.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

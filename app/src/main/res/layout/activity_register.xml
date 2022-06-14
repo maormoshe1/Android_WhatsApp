@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register"
+    tools:context=".pages.Register"
     android:background="@color/pink">
 
     <LinearLayout
@@ -17,8 +17,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegisterUN"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etRegisterUN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -26,9 +31,15 @@
             android:hint="@string/edUsername"
             android:inputType="textPersonName"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegisterPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -36,9 +47,15 @@
             android:hint="@string/edPassword"
             android:inputType="textPassword"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegisterPassword2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/etRegisterPassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -46,9 +63,15 @@
             android:hint="@string/edPassword2"
             android:inputType="textPersonName"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilRegisterDN"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
-            android:id="@+id/editTextTextPersonName7"
+            android:id="@+id/etRegisterDN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -56,6 +79,7 @@
             android:hint="@string/edDisplayName"
             android:inputType="textPersonName"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/signup"

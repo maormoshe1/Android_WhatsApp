@@ -10,4 +10,6 @@
     <string name="edContactDN">Contact\'s display name</string>
     <string name="edContactServer">Contact\'s server</string>
     <string name="btnAddContact">Add Contact</string>
+    <string name="etTypeHere">type here...</string>
+    <string name="tvSample">Name</string>
 </resources>

@@ -12,4 +12,8 @@
     <string name="btnAddContact">Add Contact</string>
     <string name="etTypeHere">type here...</string>
     <string name="tvSample">Name</string>
+    <string name="toRegisterTxt">New here?\n Click here</string>
+    <string name="loginTxt">Login</string>
+    <string name="sign_upTxt">Sign Up</string>
+    <string name="already_have_an_accountTxt">Already have an account?</string>
 </resources>

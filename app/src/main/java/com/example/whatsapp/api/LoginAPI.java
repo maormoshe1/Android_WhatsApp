@@ -1,9 +1,15 @@
 package com.example.whatsapp.api;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.example.whatsapp.MyApplication;
+import com.example.whatsapp.R;
 import com.example.whatsapp.Token;
 import com.example.whatsapp.User;
+import com.example.whatsapp.pages.ContactList;
+import com.example.whatsapp.pages.Login;
 
 import java.util.List;
 
@@ -18,22 +24,38 @@ public class LoginAPI {
     WebServerAPI webServerAPI;
 
     public LoginAPI(){
-        retrofit = new Retrofit.Builder().baseUrl("http://10.0.2.2:5132/api/")
+        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI =retrofit.create(WebServerAPI.class);
     }
-    public void post(User user){
-        Log.i("response","enter post");
+    public void login(User user){
         Call<Token> call = webServerAPI.createPost(user);
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
-                Log.i("response",response.body().getToken());
-            }
 
+                if(response.body() != null) {
+                    String t = response.body().getToken();
+                }
+            }
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
-                Log.i("response", "fail");
+            }
+        });
+    }
+
+    public void register(User user){
+        Call<Token> call = webServerAPI.signUp(user);
+        call.enqueue(new Callback<Token>() {
+            @Override
+            public void onResponse(Call<Token> call, Response<Token> response) {
+
+                if(response.body() != null) {
+                    String t = response.body().getToken();
+                }
+            }
+            @Override
+            public void onFailure(Call<Token> call, Throwable t) {
             }
         });
     }

@@ -10,4 +10,7 @@ import retrofit2.http.POST;
 public interface WebServerAPI {
     @POST("Users/login")
     Call<Token> createPost(@Body User user);
+
+    @POST("Users/signup")
+    Call<Token> signUp(@Body User user);
 }

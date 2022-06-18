@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,9 +32,15 @@ public class Login extends AppCompatActivity {
             EditText etLoginUsername = findViewById(R.id.etLoginUN);
             EditText etLoginPassword = findViewById(R.id.etLoginPassword);
             User user = new User(etLoginUsername.getText().toString(), etLoginPassword.getText().toString());
-            loginAPI.post(user);
+            loginAPI.login(user);
             Intent i = new Intent(this, ContactList.class);
             startActivity(i);
+            //TODO: do the logic of signing in
+            /*Bundle toPass = new Bundle();
+            toPass.putString("token", t);
+            Intent i = new Intent(getApplicationContext(), ContactList.class);
+            i.putExtras(toPass);
+            startActivity(i);*/
         });
     }
 }

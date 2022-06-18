@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.whatsapp.R;
+import com.example.whatsapp.User;
+import com.example.whatsapp.api.LoginAPI;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class Register extends AppCompatActivity {
@@ -21,6 +23,8 @@ public class Register extends AppCompatActivity {
             Intent i = new Intent(this, Login.class);
             startActivity(i);
         });
+
+        LoginAPI loginAPI = new LoginAPI();
 
         Button signup = findViewById(R.id.signup);
         signup.setOnClickListener(v->{
@@ -46,6 +50,10 @@ public class Register extends AppCompatActivity {
                 tilRegisterPassword2.setError("Please fill out this field");
             }
 
+            User user = new User(etRegisterUN.getText().toString(), etRegisterPassword.getText().toString(), etRegisterDN.getText().toString());
+            loginAPI.register(user);
+
+            //TODO: logic of register, start activity etc..
         });
     }
 }

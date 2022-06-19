@@ -5,6 +5,8 @@ import com.example.whatsapp.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface WebServerAPI {
@@ -14,6 +16,6 @@ public interface WebServerAPI {
     @POST("Users/signup")
     Call<Token> signUp(@Body User user);
 
-    /*@GET("Users/displayname")
-    call*/
+    @GET("Users/displayname")
+    Call<String> displayName(@Header("Authentication") String token);
 }

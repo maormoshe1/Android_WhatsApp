@@ -18,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Header;
 
 public class LoginAPI {
     Retrofit retrofit;
@@ -35,7 +36,7 @@ public class LoginAPI {
             public void onResponse(Call<Token> call, Response<Token> response) {
 
                 if(response.body() != null) {
-                    String t = response.body().getToken();
+                    String t = "Bearer " + response.body().getToken();
                 }
             }
             @Override
@@ -51,11 +52,28 @@ public class LoginAPI {
             public void onResponse(Call<Token> call, Response<Token> response) {
 
                 if(response.body() != null) {
-                    String t = response.body().getToken();
+                    String t = "Bearer " + response.body().getToken();
                 }
             }
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
+            }
+        });
+    }
+
+    public void getDisplayName(String token)
+    {
+        Call<String> call = webServerAPI.displayName(token);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+                if(response.body() != null) {
+                    String t = response.body();
+                }
+            }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
             }
         });
     }

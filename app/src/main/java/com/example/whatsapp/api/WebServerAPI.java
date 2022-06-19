@@ -13,4 +13,7 @@ public interface WebServerAPI {
 
     @POST("Users/signup")
     Call<Token> signUp(@Body User user);
+
+    /*@GET("Users/displayname")
+    call*/
 }

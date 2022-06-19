@@ -8,11 +8,17 @@ import androidx.room.PrimaryKey;
 public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String displayName;
+    private String userName;
     private String time;
     private String msg;
     private Boolean sent;
 
+    public Message(String userName, String time, String msg, Boolean sent) {
+        this.userName = userName;
+        this.time = time;
+        this.msg = msg;
+        this.sent = sent;
+    }
 
     public int getId() {
         return id;
@@ -22,12 +28,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getTime() {
@@ -51,13 +57,6 @@ public class Message {
     }
 
     public void setSent(Boolean sent) {
-        this.sent = sent;
-    }
-
-    public Message(String displayName, String time, String msg, Boolean sent) {
-        this.displayName = displayName;
-        this.time = time;
-        this.msg = msg;
         this.sent = sent;
     }
 

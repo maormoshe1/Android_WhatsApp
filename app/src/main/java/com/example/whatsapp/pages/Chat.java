@@ -18,6 +18,7 @@ import com.example.whatsapp.Message;
 import com.example.whatsapp.MessageDao;
 import com.example.whatsapp.R;
 import com.example.whatsapp.adapters.MessageAdapter;
+import com.example.whatsapp.api.MsgAPI;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -28,11 +29,11 @@ import java.util.Locale;
 
 public class Chat extends AppCompatActivity {
     private AppDB dbContact, dbChat;
-    private Contact post;
-    private ContactDao postDaoContact;
-    private MessageDao postDaoChat;
-    private int id;
-    private String name;
+    private Contact contact;
+    private ContactDao contactDao;
+    private MessageDao messageDao;
+    private String UN;
+    private String DN;
     private String time;
     private String msg;
     private SimpleDateFormat sdf;
@@ -45,12 +46,12 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"bDB")
+        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"fDB")
                 .allowMainThreadQueries().build();
-        postDaoContact = dbContact.postDao();
-        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"adDB")
+        contactDao = dbContact.postDao();
+        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"aiDB")
                 .allowMainThreadQueries().build();
-        postDaoChat = dbChat.postMsgDao();
+        messageDao = dbChat.postMsgDao();
         messages = new ArrayList<>();
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -60,29 +61,31 @@ public class Chat extends AppCompatActivity {
 //                android.R.layout.simple_list_item_1, messages);
         adapter = new MessageAdapter(this, messages);
         lvChat.setAdapter(adapter);
+        MsgAPI msgAPI = new MsgAPI();
+        msgAPI.getMessages(getIntent().getExtras().getString("token"));
 
         if(getIntent().getExtras() != null){
-            id = getIntent().getExtras().getInt("ID");
-            name = postDaoContact.get(id).getDisplayName();
-            post = postDaoContact.get(id);
-            messages.addAll(postDaoChat.getByDN(name));
-            tvDN.setText(name);
+            UN = getIntent().getExtras().getString("UN");
+            contact = contactDao.get(UN);
+            DN = contact.getDisplayName();
+            messages.addAll(messageDao.getByUN(UN));
+            tvDN.setText(DN);
         }
 
         FloatingActionButton sendMsg = findViewById(R.id.sendMsg);
         sendMsg.setOnClickListener(view -> {
-            EditText etItem = findViewById(R.id.editTextMsg);
-            msg = etItem.getText().toString();
+            EditText etSend = findViewById(R.id.etSend);
+            msg = etSend.getText().toString();
             if (!msg.equals("")) {
-                etItem.setText("");
+                etSend.setText("");
                 time = sdf.format(new Date());
-                Message postMsg = new Message(name, time, msg, true);
-                postDaoChat.insert(postMsg);
-                post.setLastMsg(msg);
-                post.setLastMsgDate(time);
-                postDaoContact.update(post);
+                Message postMsg = new Message(UN, time, msg, true);
+                messageDao.insert(postMsg);
+                contact.setLastMsg(msg);
+                contact.setLastMsgDate(time);
+                contactDao.update(contact);
                 messages.clear();
-                messages.addAll(postDaoChat.getByDN(name));
+                messages.addAll(messageDao.getByUN(UN));
                 adapter.notifyDataSetChanged();
             }
         });

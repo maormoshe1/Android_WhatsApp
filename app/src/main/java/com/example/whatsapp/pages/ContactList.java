@@ -34,7 +34,7 @@ public class ContactList extends AppCompatActivity {
         String token = getIntent().getStringExtra("token");
         Log.i("token", token);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"bDB")
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"fDB")
                 .allowMainThreadQueries().build();
         postDao = db.postDao();
 
@@ -52,7 +52,8 @@ public class ContactList extends AppCompatActivity {
 
         lvContacts.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(this, Chat.class);
-            intent.putExtra("ID",contacts.get(i).getId());
+            intent.putExtra("UN", contacts.get(i).getId());
+            intent.putExtra("token", getIntent().getExtras().getString("token"));
             startActivity(intent);
         });
     }

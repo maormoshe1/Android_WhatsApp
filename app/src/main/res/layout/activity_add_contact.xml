@@ -16,8 +16,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddConUN"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
-            android:id="@+id/editTextUN"
+            android:id="@+id/etAddConUN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -25,9 +30,15 @@
             android:hint="@string/edContactIdentifier"
             android:inputType="textPersonName"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddConDN"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
-            android:id="@+id/editTextDN"
+            android:id="@+id/etAddConDN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -35,9 +46,15 @@
             android:hint="@string/edContactDN"
             android:inputType="textPersonName"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilAddConServer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true">
         <EditText
-            android:id="@+id/editTextServer"
+            android:id="@+id/etAddConServer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -45,6 +62,7 @@
             android:hint="@string/edContactServer"
             android:inputType="textPersonName"
             android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/addContact"

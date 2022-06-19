@@ -1,5 +1,6 @@
 package com.example.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -7,18 +8,28 @@ import java.util.List;
 
 @Entity
 public class Contact {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey @NonNull
+    private String id;
     private String displayName;
     private int pic;
+    private String server;
     private String lastMsg;
     private String lastMsgDate;
 
-    public int getId() {
+    public Contact(@NonNull String id, String displayName, String server) {
+        this.id = id;
+        this.displayName = displayName;
+        this.server = server;
+        this.lastMsg = "";
+        this.lastMsgDate = "";
+    }
+
+    @NonNull
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(@NonNull String id) {
         this.id = id;
     }
 
@@ -38,6 +49,14 @@ public class Contact {
         this.pic = pic;
     }
 
+    public String getServer() {
+        return server;
+    }
+
+    public void setServer(String server) {
+        this.server = server;
+    }
+
     public String getLastMsg() {
         return lastMsg;
     }
@@ -52,21 +71,5 @@ public class Contact {
 
     public void setLastMsgDate(String lastMsgDate) {
         this.lastMsgDate = lastMsgDate;
-    }
-
-    public Contact(String displayName) {
-        this.displayName = displayName;
-        pic = 0;
-        lastMsg = "";
-        lastMsgDate = "";
-    }
-
-    @Override
-    public String toString() {
-        if(lastMsgDate.equals("")){
-            return displayName;
-        }
-        return displayName + " " + lastMsg + " " + lastMsgDate.substring(11,16);
-
     }
 }

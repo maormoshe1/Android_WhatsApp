@@ -1,7 +1,10 @@
 package com.example.whatsapp.api;
 
+import com.example.whatsapp.Message;
 import com.example.whatsapp.Token;
 import com.example.whatsapp.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,4 +21,10 @@ public interface WebServerAPI {
 
     @GET("Users/displayname")
     Call<String> displayName(@Header("Authentication") String token);
+
+    @GET("contacts/{id}/messages")
+    Call<List<Message>> getMesaages(@Header("Authentication") String token);
+
+    @POST("contacts/{id}/messages")
+    Call<Void> addContact(@Header("Authentication") String token);
 }

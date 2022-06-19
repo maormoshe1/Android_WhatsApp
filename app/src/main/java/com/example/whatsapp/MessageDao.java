@@ -16,8 +16,8 @@ public interface MessageDao {
     @Query("SELECT * FROM Message WHERE id = :id")
     Message get(String id);
 
-    @Query("SELECT * FROM Message WHERE displayName = :displayName")
-    List<Message> getByDN(String displayName);
+    @Query("SELECT * FROM Message WHERE userName = :UN")
+    List<Message> getByUN(String UN);
 
     @Insert
     void insert(Message... posts);

@@ -43,13 +43,9 @@ public class Login extends AppCompatActivity {
 
         Button login = findViewById(R.id.login);
         login.setOnClickListener(v->{
-            //EditText etLoginUsername = findViewById(R.id.etLoginUN);
-            //EditText etLoginPassword = findViewById(R.id.etLoginPassword);
-            String etLoginUsername = "Nikol";
-            String etLoginPassword = "Nn1";
-            //User user = new User(etLoginUsername.getText().toString(), etLoginPassword.getText().toString());
-            User user = new User(etLoginUsername, etLoginPassword);
-
+            EditText etLoginUsername = findViewById(R.id.etLoginUN);
+            EditText etLoginPassword = findViewById(R.id.etLoginPassword);
+            User user = new User(etLoginUsername.getText().toString(), etLoginPassword.getText().toString());
             uvm.login(user);
         });
     }

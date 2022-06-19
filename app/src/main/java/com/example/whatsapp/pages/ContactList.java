@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,6 +30,9 @@ public class ContactList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
+
+        String token = getIntent().getStringExtra("token");
+        Log.i("token", token);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"bDB")
                 .allowMainThreadQueries().build();

@@ -1,15 +1,18 @@
 package com.example.whatsapp.pages;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.whatsapp.R;
 import com.example.whatsapp.User;
 import com.example.whatsapp.api.LoginAPI;
+import com.example.whatsapp.viewModels.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class Register extends AppCompatActivity {
@@ -24,7 +27,19 @@ public class Register extends AppCompatActivity {
             startActivity(i);
         });
 
-        LoginAPI loginAPI = new LoginAPI();
+        UserViewModel uvm = new ViewModelProvider(this).get(UserViewModel.class);
+        uvm.getToken().observe(this,token->{
+            if(token!=null)
+            {
+                Intent i = new Intent(this, ContactList.class);
+                i.putExtra("token", token);
+                startActivity(i);
+            }
+            else
+                Log.i("R", "no user");
+            //TODO: notify there is no user
+
+        });
 
         Button signup = findViewById(R.id.signup);
         signup.setOnClickListener(v->{
@@ -51,9 +66,7 @@ public class Register extends AppCompatActivity {
             }
 
             User user = new User(etRegisterUN.getText().toString(), etRegisterPassword.getText().toString(), etRegisterDN.getText().toString());
-            loginAPI.register(user);
-
-            //TODO: logic of register, start activity etc..
+            uvm.register(user);
         });
     }
 }

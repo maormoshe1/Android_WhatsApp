@@ -1,24 +1,17 @@
 package com.example.whatsapp.api;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
 import com.example.whatsapp.Token;
 import com.example.whatsapp.User;
-import com.example.whatsapp.pages.ContactList;
-import com.example.whatsapp.pages.Login;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Header;
 
 public class LoginAPI {
     Retrofit retrofit;
@@ -29,15 +22,17 @@ public class LoginAPI {
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI =retrofit.create(WebServerAPI.class);
     }
-    public void login(User user){
+    public void login(User user, MutableLiveData<String> token){
         Call<Token> call = webServerAPI.createPost(user);
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
 
                 if(response.body() != null) {
-                    String t = "Bearer " + response.body().getToken();
+                    token.setValue("Bearer " + response.body().getToken());
                 }
+                else
+                    token.setValue(null);
             }
             @Override
             public void onFailure(Call<Token> call, Throwable t) {
@@ -45,15 +40,17 @@ public class LoginAPI {
         });
     }
 
-    public void register(User user){
+    public void register(User user, MutableLiveData<String> token){
         Call<Token> call = webServerAPI.signUp(user);
         call.enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
 
-                if(response.body() != null) {
-                    String t = "Bearer " + response.body().getToken();
-                }
+                if(response.body() != null)
+                    token.setValue("Bearer " + response.body().getToken());
+                else
+                    token.setValue(null);
+
             }
             @Override
             public void onFailure(Call<Token> call, Throwable t) {

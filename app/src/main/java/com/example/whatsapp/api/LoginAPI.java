@@ -1,5 +1,7 @@
 package com.example.whatsapp.api;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.whatsapp.MyApplication;
@@ -29,6 +31,7 @@ public class LoginAPI {
             public void onResponse(Call<Token> call, Response<Token> response) {
 
                 if(response.body() != null) {
+                    Log.i("login api", response.body().getToken());
                     token.setValue("Bearer " + response.body().getToken());
                 }
                 else

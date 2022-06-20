@@ -57,6 +57,7 @@ public class Login extends AppCompatActivity {
             {
                 Intent i = new Intent(this, ContactList.class);
                 i.putExtra("token", token);
+                i.putExtra("username", etLoginUN.getText().toString());
                 startActivity(i);
             }
             else {

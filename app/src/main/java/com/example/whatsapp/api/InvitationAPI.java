@@ -2,13 +2,12 @@ package com.example.whatsapp.api;
 
 import android.util.Log;
 
+import com.example.whatsapp.Connection;
 import com.example.whatsapp.Contact;
-import com.example.whatsapp.Message;
 import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
+import com.example.whatsapp.Token;
 import com.example.whatsapp.room.ContactDao;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,27 +15,29 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AddContactAPI {
+public class InvitationAPI {
     Retrofit retrofit;
     WebServerAPI webServerAPI;
-    public AddContactAPI(){
-        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+    AddContactAPI addContactAPI;
+
+    public InvitationAPI(String server){
+        String url = "http://"+server+"/api/";
+        retrofit = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI = retrofit.create(WebServerAPI.class);
+        addContactAPI = new AddContactAPI();
     }
-    public void addContact(String token, Contact contact, ContactDao contactDao){
-        Call<Void> call = webServerAPI.addContact(token, contact);
+    public void inviteContact(String token, Connection connection, Contact contact, ContactDao contactDao){
+        Call<Void> call = webServerAPI.inviteContact(connection);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 response.body();
-                contactDao.insert(contact);
-                //TODO added contact msg
+                addContactAPI.addContact(token, contact, contactDao);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                t.getCause();
                 //TODO something wrong msg
             }
         });

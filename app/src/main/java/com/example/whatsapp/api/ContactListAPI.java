@@ -2,10 +2,13 @@ package com.example.whatsapp.api;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.whatsapp.Contact;
-import com.example.whatsapp.Message;
 import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
+import com.example.whatsapp.Token;
+import com.example.whatsapp.User;
 import com.example.whatsapp.room.ContactDao;
 
 import java.util.List;
@@ -16,28 +19,29 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AddContactAPI {
+public class ContactListAPI {
     Retrofit retrofit;
     WebServerAPI webServerAPI;
-    public AddContactAPI(){
+
+    public ContactListAPI() {
         retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI = retrofit.create(WebServerAPI.class);
     }
-    public void addContact(String token, Contact contact, ContactDao contactDao){
-        Call<Void> call = webServerAPI.addContact(token, contact);
-        call.enqueue(new Callback<Void>() {
+
+    public void getContacts(String token, ContactDao contactDao) {
+        Call<List<Contact>> call = webServerAPI.getContacts(token);
+        call.enqueue(new Callback<List<Contact>>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 response.body();
-                contactDao.insert(contact);
-                //TODO added contact msg
+                for (Contact contact: response.body()) {
+                    contactDao.insert(contact);
+                }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                t.getCause();
-                //TODO something wrong msg
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
             }
         });
     }

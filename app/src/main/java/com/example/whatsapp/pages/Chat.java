@@ -1,21 +1,18 @@
 package com.example.whatsapp.pages;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.whatsapp.AppDB;
+import com.example.whatsapp.room.AppDB;
 import com.example.whatsapp.Contact;
-import com.example.whatsapp.ContactDao;
+import com.example.whatsapp.room.ContactDao;
 import com.example.whatsapp.Message;
-import com.example.whatsapp.MessageDao;
+import com.example.whatsapp.room.MessageDao;
 import com.example.whatsapp.R;
 import com.example.whatsapp.adapters.MessageAdapter;
 import com.example.whatsapp.api.MsgAPI;
@@ -24,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class Chat extends AppCompatActivity {
@@ -46,10 +42,10 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"fDB")
+        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"rDB")
                 .allowMainThreadQueries().build();
         contactDao = dbContact.postDao();
-        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"aiDB")
+        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"brDB")
                 .allowMainThreadQueries().build();
         messageDao = dbChat.postMsgDao();
         messages = new ArrayList<>();
@@ -67,7 +63,7 @@ public class Chat extends AppCompatActivity {
         if(getIntent().getExtras() != null){
             UN = getIntent().getExtras().getString("UN");
             contact = contactDao.get(UN);
-            DN = contact.getDisplayName();
+            DN = contact.getNickName();
             messages.addAll(messageDao.getByUN(UN));
             tvDN.setText(DN);
         }
@@ -81,8 +77,8 @@ public class Chat extends AppCompatActivity {
                 time = sdf.format(new Date());
                 Message postMsg = new Message(UN, time, msg, true);
                 messageDao.insert(postMsg);
-                contact.setLastMsg(msg);
-                contact.setLastMsgDate(time);
+                contact.setLast(msg);
+                contact.setLastdate(time);
                 contactDao.update(contact);
                 messages.clear();
                 messages.addAll(messageDao.getByUN(UN));

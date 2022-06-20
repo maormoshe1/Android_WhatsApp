@@ -32,13 +32,15 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         TextView tvLastMsg = (TextView) convertView.findViewById(R.id.tvLastMsg);
         TextView tvLastMsgTime = (TextView) convertView.findViewById(R.id.tvLastMsgTime);
         // Populate the data into the template view using the data object
-        tvDN.setText(contact.getDisplayName());
-        tvLastMsg.setText(contact.getLastMsg());
-        if(contact.getLastMsgDate().equals("")) {
+        tvDN.setText(contact.getNickName());
+        if(contact.getLast() == null) {
+            tvLastMsg.setText("");
+        }
+        if(contact.getLastdate() == null) {
             tvLastMsgTime.setText("");
         }
         else{
-            tvLastMsgTime.setText(contact.getLastMsgDate().substring(11,16));
+            tvLastMsgTime.setText(contact.getLastdate().substring(11,16));
         }
         // Return the completed view to render on screen
         return convertView;

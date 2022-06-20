@@ -1,10 +1,12 @@
-package com.example.whatsapp;
+package com.example.whatsapp.room;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.whatsapp.Message;
 
 import java.util.List;
 

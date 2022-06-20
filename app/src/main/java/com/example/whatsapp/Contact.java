@@ -8,37 +8,43 @@ import java.util.List;
 
 @Entity
 public class Contact {
-    @PrimaryKey @NonNull
-    private String id;
-    private String displayName;
+    @PrimaryKey (autoGenerate = true)
+    private int id;
+    private String idName;
+    private String nickName;
     private int pic;
     private String server;
-    private String lastMsg;
-    private String lastMsgDate;
+    private String last;
+    private String lastdate;
 
-    public Contact(@NonNull String id, String displayName, String server) {
-        this.id = id;
-        this.displayName = displayName;
+    public Contact(String idName, String nickName, String server) {
+        this.idName = idName;
+        this.nickName = nickName;
         this.server = server;
-        this.lastMsg = "";
-        this.lastMsgDate = "";
     }
 
-    @NonNull
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(@NonNull String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getIdName() {
+        return idName;
     }
 
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setIdName(String idName) {
+        this.idName = idName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public int getPic() {
@@ -57,19 +63,19 @@ public class Contact {
         this.server = server;
     }
 
-    public String getLastMsg() {
-        return lastMsg;
+    public String getLast() {
+        return last;
     }
 
-    public void setLastMsg(String lastMsg) {
-        this.lastMsg = lastMsg;
+    public void setLast(String last) {
+        this.last = last;
     }
 
-    public String getLastMsgDate() {
-        return lastMsgDate;
+    public String getLastdate() {
+        return lastdate;
     }
 
-    public void setLastMsgDate(String lastMsgDate) {
-        this.lastMsgDate = lastMsgDate;
+    public void setLastdate(String lastdate) {
+        this.lastdate = lastdate;
     }
 }

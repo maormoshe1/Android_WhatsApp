@@ -31,16 +31,13 @@ public class ContactList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
                 .allowMainThreadQueries().build();
         contactDao = db.postDao();
         token = getIntent().getStringExtra("token");
         UN = getIntent().getStringExtra("username");
         contactListAPI = new ContactListAPI();
         contacts = new ArrayList<>();
-        contactListAPI.getContacts(token, contactDao);
-        contacts.clear();
-        contacts.addAll(contactDao.index());
         ListView lvContacts = findViewById(R.id.lvContacts);
         adapter = new ContactAdapter(this, contacts);
         lvContacts.setAdapter(adapter);
@@ -51,6 +48,12 @@ public class ContactList extends AppCompatActivity {
             Intent i = new Intent(this, AddContact.class);
             i.putExtra("token", token);
             i.putExtra("username", UN);
+            startActivity(i);
+        });
+
+        FloatingActionButton toSettings = findViewById(R.id.toSettings);
+        toSettings.setOnClickListener(v->{
+            Intent i = new Intent(this, Settings.class);
             startActivity(i);
         });
 

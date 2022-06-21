@@ -85,7 +85,7 @@ public class AddContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
                 .allowMainThreadQueries().build();
         contactDao = db.postDao();
         //addContactAPI = new AddContactAPI();

@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class Chat extends AppCompatActivity {
     private AppDB dbContact, dbChat;
@@ -47,10 +48,10 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
+        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
                 .allowMainThreadQueries().build();
         contactDao = dbContact.postDao();
-        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
+        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
                 .allowMainThreadQueries().build();
         messageDao = dbChat.postMsgDao();
         messages = new ArrayList<>();
@@ -59,6 +60,8 @@ public class Chat extends AppCompatActivity {
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         TextView tvDN = findViewById(R.id.tvDN);
         ListView lvChat = findViewById(R.id.lvChat);
+        adapter = new MessageAdapter(this, messages);
+        lvChat.setAdapter(adapter);
 
         conUN = getIntent().getStringExtra("conUN");
         UN = getIntent().getStringExtra("username");
@@ -66,12 +69,11 @@ public class Chat extends AppCompatActivity {
         transferAPI = new TransferAPI(contact.getServer());
         DN = contact.getNickName();
         tvDN.setText(DN);
+
         messages.clear();
         msgAPI.getMessages(token, conUN, messageDao);
         messages.addAll(messageDao.getByUN(conUN));
-
-        adapter = new MessageAdapter(this, messages);
-        lvChat.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         FloatingActionButton sendMsg = findViewById(R.id.sendMsg);
         sendMsg.setOnClickListener(view -> {
@@ -83,8 +85,6 @@ public class Chat extends AppCompatActivity {
                 Message postMsg = new Message(null, time, msg, null);
                 Connection connection = new Connection(UN, conUN, null, msg);
                 transferAPI.transferMessage(connection, token, conUN, postMsg, messageDao);
-                msgAPI.getMessages(token, conUN, messageDao);
-                messages.clear();
                 messages.addAll(messageDao.getByUN(conUN));
                 adapter.notifyDataSetChanged();
             }
@@ -96,7 +96,7 @@ public class Chat extends AppCompatActivity {
         super.onResume();
         msgAPI.getMessages(token, conUN, messageDao);
         messages.clear();
-        messages.addAll(messageDao.index());
+        messages.addAll(messageDao.getByUN(conUN));
         adapter.notifyDataSetChanged();
     }
 }

@@ -3,8 +3,12 @@ package com.example.whatsapp.viewModels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.whatsapp.Contact;
+import com.example.whatsapp.Message;
 import com.example.whatsapp.User;
 import com.example.whatsapp.repositories.UserRepository;
+
+import java.util.List;
 
 public class UserViewModel extends ViewModel {
     private MutableLiveData<String> token;

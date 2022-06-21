@@ -36,6 +36,9 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
         if(contact.getLast() == null) {
             tvLastMsg.setText("");
         }
+        else{
+            tvLastMsg.setText(contact.getLast());
+        }
         if(contact.getLastdate() == null) {
             tvLastMsgTime.setText("");
         }

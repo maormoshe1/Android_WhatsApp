@@ -17,14 +17,18 @@
         android:theme="@style/Theme.WhatsApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".pages.Settings"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/btn_design" />
 
         <activity
             android:name=".pages.Chat"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".pages.AddContact"
             android:exported="false" />

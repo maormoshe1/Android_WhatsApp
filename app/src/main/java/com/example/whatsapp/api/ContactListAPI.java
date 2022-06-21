@@ -38,7 +38,7 @@ public class ContactListAPI {
                 response.body();
                 contactDao.deleteAll();
                 for (Contact c: response.body()) {
-                    Contact contact = new Contact(c.getIdName(),c.getNickName(),c.getServer(),null,null);
+                    Contact contact = new Contact(c.getIdName(),c.getNickName(),c.getServer(),c.getLast(),c.getLastdate());
                     contactDao.insert(contact);
                 }
             }

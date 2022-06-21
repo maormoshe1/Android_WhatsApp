@@ -50,8 +50,8 @@ public class MsgAPI {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-               // Message m = new Message(id, message.getCreated(), message.getContent(), true);
-                //messageDao.insert(m);
+                Message m = new Message(id, message.getCreated(), message.getContent(), true);
+                messageDao.insert(m);
             }
 
             @Override

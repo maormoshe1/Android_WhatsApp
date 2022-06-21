@@ -8,8 +8,9 @@ import java.util.List;
 
 @Entity
 public class Contact {
-    @PrimaryKey (autoGenerate = true)
-    private int id;
+//    @PrimaryKey (autoGenerate = true)
+//    private int id;
+    @PrimaryKey @NonNull
     private String idName;
     private String nickName;
     private int pic;
@@ -17,25 +18,37 @@ public class Contact {
     private String last;
     private String lastdate;
 
-    public Contact(String idName, String nickName, String server) {
+    public Contact(@NonNull String idName, String nickName, String server, String last, String lastdate) {
         this.idName = idName;
         this.nickName = nickName;
         this.server = server;
+        this.last = last;
+        this.lastdate = lastdate;
     }
 
-    public int getId() {
-        return id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public String getIdName() {
+//        return idName;
+//    }
+//
+//    public void setIdName(String idName) {
+//        this.idName = idName;
+//    }
 
+
+    @NonNull
     public String getIdName() {
         return idName;
     }
 
-    public void setIdName(String idName) {
+    public void setIdName(@NonNull String idName) {
         this.idName = idName;
     }
 

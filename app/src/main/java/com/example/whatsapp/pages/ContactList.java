@@ -24,7 +24,6 @@ public class ContactList extends AppCompatActivity {
     private String token;
     private String UN;
     private ArrayList<Contact> contacts;
-    //private ArrayAdapter<Contact> adapter;
     private ContactAdapter adapter;
 
     @Override
@@ -32,13 +31,15 @@ public class ContactList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"rDB")
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
                 .allowMainThreadQueries().build();
         contactDao = db.postDao();
         token = getIntent().getStringExtra("token");
         UN = getIntent().getStringExtra("username");
         contactListAPI = new ContactListAPI();
         contacts = new ArrayList<>();
+        contactListAPI.getContacts(token, contactDao);
+        contacts.clear();
         contacts.addAll(contactDao.index());
         ListView lvContacts = findViewById(R.id.lvContacts);
         adapter = new ContactAdapter(this, contacts);
@@ -55,8 +56,9 @@ public class ContactList extends AppCompatActivity {
 
         lvContacts.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(this, Chat.class);
-            intent.putExtra("UN", contacts.get(i).getIdName());
-            intent.putExtra("token", getIntent().getExtras().getString("token"));
+            intent.putExtra("conUN", contacts.get(i).getIdName());
+            intent.putExtra("username", UN);
+            intent.putExtra("token", token);
             startActivity(intent);
         });
     }

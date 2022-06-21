@@ -6,12 +6,13 @@ public class Connection {
     private String server;
     private String content;
 
-    public Connection(String from, String to, String server) {
+    public Connection(String from, String to, String server, String content) {
         this.from = from;
         this.to = to;
         this.server = server;
-        this.content = "";
+        this.content = content;
     }
+
 
     public String getFrom() {
         return from;

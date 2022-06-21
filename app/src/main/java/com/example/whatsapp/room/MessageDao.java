@@ -21,6 +21,9 @@ public interface MessageDao {
     @Query("SELECT * FROM Message WHERE userName = :UN")
     List<Message> getByUN(String UN);
 
+    @Query("DELETE FROM Message")
+    void deleteAll();
+
     @Insert
     void insert(Message... posts);
 

@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.whatsapp.Connection;
+import com.example.whatsapp.api.TransferAPI;
 import com.example.whatsapp.room.AppDB;
 import com.example.whatsapp.Contact;
 import com.example.whatsapp.room.ContactDao;
@@ -28,13 +30,16 @@ public class Chat extends AppCompatActivity {
     private Contact contact;
     private ContactDao contactDao;
     private MessageDao messageDao;
+    private MsgAPI msgAPI;
+    private TransferAPI transferAPI;
+    private String token;
     private String UN;
+    private String conUN;
     private String DN;
     private String time;
     private String msg;
     private SimpleDateFormat sdf;
     private ArrayList<Message> messages;
-    //private ArrayAdapter<Message> adapter;
     private MessageAdapter adapter;
 
     @Override
@@ -42,31 +47,31 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"rDB")
+        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
                 .allowMainThreadQueries().build();
         contactDao = dbContact.postDao();
-        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"brDB")
+        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
                 .allowMainThreadQueries().build();
         messageDao = dbChat.postMsgDao();
         messages = new ArrayList<>();
+        msgAPI = new MsgAPI();
+        token = getIntent().getStringExtra("token");
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
         TextView tvDN = findViewById(R.id.tvDN);
         ListView lvChat = findViewById(R.id.lvChat);
-//        adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, messages);
+
+        conUN = getIntent().getStringExtra("conUN");
+        UN = getIntent().getStringExtra("username");
+        contact = contactDao.get(conUN);
+        transferAPI = new TransferAPI(contact.getServer());
+        DN = contact.getNickName();
+        tvDN.setText(DN);
+        messages.clear();
+        msgAPI.getMessages(token, conUN, messageDao);
+        messages.addAll(messageDao.getByUN(conUN));
+
         adapter = new MessageAdapter(this, messages);
         lvChat.setAdapter(adapter);
-        MsgAPI msgAPI = new MsgAPI();
-        msgAPI.getMessages(getIntent().getExtras().getString("token"));
-
-        if(getIntent().getExtras() != null){
-            UN = getIntent().getExtras().getString("UN");
-            contact = contactDao.get(UN);
-            DN = contact.getNickName();
-            messages.addAll(messageDao.getByUN(UN));
-            tvDN.setText(DN);
-        }
 
         FloatingActionButton sendMsg = findViewById(R.id.sendMsg);
         sendMsg.setOnClickListener(view -> {
@@ -75,16 +80,23 @@ public class Chat extends AppCompatActivity {
             if (!msg.equals("")) {
                 etSend.setText("");
                 time = sdf.format(new Date());
-                Message postMsg = new Message(UN, time, msg, true);
-                messageDao.insert(postMsg);
-                contact.setLast(msg);
-                contact.setLastdate(time);
-                contactDao.update(contact);
+                Message postMsg = new Message(null, time, msg, null);
+                Connection connection = new Connection(UN, conUN, null, msg);
+                transferAPI.transferMessage(connection, token, conUN, postMsg, messageDao);
+                msgAPI.getMessages(token, conUN, messageDao);
                 messages.clear();
-                messages.addAll(messageDao.getByUN(UN));
+                messages.addAll(messageDao.getByUN(conUN));
                 adapter.notifyDataSetChanged();
             }
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        msgAPI.getMessages(token, conUN, messageDao);
+        messages.clear();
+        messages.addAll(messageDao.index());
+        adapter.notifyDataSetChanged();
+    }
 }

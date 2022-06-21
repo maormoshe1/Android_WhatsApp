@@ -26,7 +26,10 @@ public interface WebServerAPI {
     Call<String> displayName(@Header("Authorization") String token);
 
     @GET("contacts/{id}/messages")
-    Call<List<Message>> getMesaages(@Header("Authorization") String token);
+    Call<List<Message>> getMesaages(@Header("Authorization") String token, @Path("id") String id);
+
+    @POST("contacts/{id}/messages")
+    Call<Void> postMesaage(@Header("Authorization") String token, @Path("id") String id, @Body Message message);
 
     @GET("contacts")
     Call<List<Contact>> getContacts(@Header("Authorization") String token);
@@ -36,4 +39,8 @@ public interface WebServerAPI {
 
     @POST("invitations")
     Call<Void> inviteContact(@Body Connection connection);
+
+    @POST("transfer")
+    Call<Void> transferMessage(@Body Connection connection);
+
 }

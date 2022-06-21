@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.whatsapp.api.AddContactAPI;
 import com.example.whatsapp.room.AppDB;
 import com.example.whatsapp.Connection;
 import com.example.whatsapp.Contact;
@@ -84,7 +85,7 @@ public class AddContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"rDB")
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"edDB")
                 .allowMainThreadQueries().build();
         contactDao = db.postDao();
         //addContactAPI = new AddContactAPI();
@@ -94,11 +95,11 @@ public class AddContact extends AppCompatActivity {
 
         addContact.setOnClickListener(v->{
             if (validation()) {
-                Contact contact = new Contact(conUN, conDN, conServer);
-                Connection connection = new Connection(UN, conUN, conServer);
-                //addContactAPI.addContact(token, contact);
+                Contact contact = new Contact(conUN, conDN, conServer, null, null);
+                Connection connection = new Connection(UN, conUN, conServer, null);
+                //addContactAPI.addContact(token, contact, contactDao);
                 invitationAPI = new InvitationAPI(conServer);
-                invitationAPI.inviteContact(token, connection, contact, contactDao);
+                invitationAPI.inviteContact(connection, token, contact, contactDao);
                 //contactDao.insert(contact);
                 //TO DO msg contact added
             }

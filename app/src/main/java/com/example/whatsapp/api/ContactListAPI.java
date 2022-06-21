@@ -2,6 +2,7 @@ package com.example.whatsapp.api;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.whatsapp.Contact;
@@ -35,7 +36,9 @@ public class ContactListAPI {
             @Override
             public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 response.body();
-                for (Contact contact: response.body()) {
+                contactDao.deleteAll();
+                for (Contact c: response.body()) {
+                    Contact contact = new Contact(c.getIdName(),c.getNickName(),c.getServer(),null,null);
                     contactDao.insert(contact);
                 }
             }

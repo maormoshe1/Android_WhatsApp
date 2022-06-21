@@ -9,14 +9,14 @@ public class Message {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String userName;
-    private String time;
-    private String msg;
+    private String created;
+    private String content;
     private Boolean sent;
 
-    public Message(String userName, String time, String msg, Boolean sent) {
+    public Message(String userName, String created, String content, Boolean sent) {
         this.userName = userName;
-        this.time = time;
-        this.msg = msg;
+        this.created = created;
+        this.content = content;
         this.sent = sent;
     }
 
@@ -36,20 +36,20 @@ public class Message {
         this.userName = userName;
     }
 
-    public String getTime() {
-        return time;
+    public String getCreated() {
+        return created;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setCreated(String time) {
+        this.created = created;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getContent() {
+        return content;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setContent(String msg) {
+        this.content = content;
     }
 
     public Boolean getSent() {
@@ -60,9 +60,4 @@ public class Message {
         this.sent = sent;
     }
 
-
-    @Override
-    public String toString() {
-        return msg + "  " + time.substring(11,16);
-    }
 }

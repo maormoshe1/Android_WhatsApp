@@ -18,6 +18,9 @@ public interface ContactDao {
     @Query("SELECT * FROM Contact WHERE idName = :idName")
     Contact get(String idName);
 
+    @Query("DELETE FROM Contact")
+    void deleteAll();
+
     @Insert
     void insert(Contact... contacts);
 

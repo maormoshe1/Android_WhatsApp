@@ -16,5 +16,5 @@
     <string name="loginTxt">Login</string>
     <string name="sign_upTxt">Sign Up</string>
     <string name="already_have_an_accountTxt">Already have an account?</string>
-    <string name="BaseUrl">http://10.0.2.2:5132/api/</string>
+<!--    <string name="BaseUrl">http://10.0.2.2:5132/api/</string>-->
 </resources>

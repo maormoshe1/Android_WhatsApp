@@ -9,10 +9,12 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
 import com.example.whatsapp.User;
 import com.example.whatsapp.api.LoginAPI;
 import com.example.whatsapp.viewModels.UserViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
 import java.util.regex.Pattern;
 
@@ -118,6 +120,12 @@ public class Register extends AppCompatActivity {
                 User user = new User(etRegisterUN.getText().toString(), etRegisterPassword.getText().toString(), etRegisterDN.getText().toString());
                 uvm.register(user);
             }
+        });
+
+        FloatingActionButton toSettings = findViewById(R.id.toSettings);
+        toSettings.setOnClickListener(v->{
+            Intent i = new Intent(this, Settings.class);
+            startActivity(i);
         });
     }
 }

@@ -8,6 +8,7 @@ import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
 import com.example.whatsapp.Token;
 import com.example.whatsapp.room.ContactDao;
+import com.google.android.material.textfield.TextInputLayout;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,18 +28,24 @@ public class InvitationAPI {
         webServerAPI = retrofit.create(WebServerAPI.class);
         addContactAPI = new AddContactAPI();
     }
-    public void inviteContact(Connection connection, String token, Contact contact, ContactDao contactDao){
+    public void inviteContact(Connection connection, String token, Contact contact, ContactDao contactDao,
+                              TextInputLayout tilAddConServer){
         Call<Void> call = webServerAPI.inviteContact(connection);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 response.body();
-                addContactAPI.addContact(token, contact, contactDao);
+                if (response.code() != 400) {
+                    addContactAPI.addContact(token, contact, contactDao);
+                }
+                else{
+                    tilAddConServer.setError("This username does not exist on the server");
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                //TODO something wrong msg
+                tilAddConServer.setError("This username does not exist on the server");
             }
         });
     }

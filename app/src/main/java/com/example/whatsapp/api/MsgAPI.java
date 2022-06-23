@@ -21,7 +21,8 @@ public class MsgAPI {
     Retrofit retrofit;
     WebServerAPI webServerAPI;
     public MsgAPI(){
-        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+        String url = "http://"+MyApplication.myServer+"/api/";
+        retrofit = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI =retrofit.create(WebServerAPI.class);
     }
@@ -50,8 +51,8 @@ public class MsgAPI {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Message m = new Message(id, message.getCreated(), message.getContent(), true);
-                messageDao.insert(m);
+//                Message m = new Message(id, message.getCreated(), message.getContent(), true);
+//                messageDao.insert(m);
             }
 
             @Override

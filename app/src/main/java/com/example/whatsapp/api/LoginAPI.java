@@ -20,7 +20,9 @@ public class LoginAPI {
     WebServerAPI webServerAPI;
 
     public LoginAPI(){
-        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+        String url = "http://"+MyApplication.myServer+"/api/";
+        Log.i("loginapi",url);
+        retrofit = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI =retrofit.create(WebServerAPI.class);
     }

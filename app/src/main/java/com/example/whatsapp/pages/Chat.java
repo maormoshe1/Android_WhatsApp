@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.whatsapp.Connection;
+import com.example.whatsapp.api.ContactListAPI;
 import com.example.whatsapp.api.TransferAPI;
 import com.example.whatsapp.room.AppDB;
 import com.example.whatsapp.Contact;
@@ -32,6 +33,7 @@ public class Chat extends AppCompatActivity {
     private ContactDao contactDao;
     private MessageDao messageDao;
     private MsgAPI msgAPI;
+    private ContactListAPI contactListAPI;
     private TransferAPI transferAPI;
     private String token;
     private String UN;
@@ -56,6 +58,7 @@ public class Chat extends AppCompatActivity {
         messageDao = dbChat.postMsgDao();
         messages = new ArrayList<>();
         msgAPI = new MsgAPI();
+        contactListAPI = new ContactListAPI();
         token = getIntent().getStringExtra("token");
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         TextView tvDN = findViewById(R.id.tvDN);
@@ -70,8 +73,8 @@ public class Chat extends AppCompatActivity {
         DN = contact.getNickName();
         tvDN.setText(DN);
 
-        messages.clear();
         msgAPI.getMessages(token, conUN, messageDao);
+        messages.clear();
         messages.addAll(messageDao.getByUN(conUN));
         adapter.notifyDataSetChanged();
 
@@ -85,6 +88,9 @@ public class Chat extends AppCompatActivity {
                 Message postMsg = new Message(null, time, msg, null);
                 Connection connection = new Connection(UN, conUN, null, msg);
                 transferAPI.transferMessage(connection, token, conUN, postMsg, messageDao);
+                msgAPI.getMessages(token, conUN, messageDao);
+                contactListAPI.getContacts(token, contactDao);
+                messages.clear();
                 messages.addAll(messageDao.getByUN(conUN));
                 adapter.notifyDataSetChanged();
             }

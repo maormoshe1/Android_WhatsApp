@@ -25,7 +25,8 @@ public class ContactListAPI {
     WebServerAPI webServerAPI;
 
     public ContactListAPI() {
-        retrofit = new Retrofit.Builder().baseUrl(MyApplication.context.getString(R.string.BaseUrl))
+        String url = "http://"+MyApplication.myServer+"/api/";
+        retrofit = new Retrofit.Builder().baseUrl(url)
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI = retrofit.create(WebServerAPI.class);
     }

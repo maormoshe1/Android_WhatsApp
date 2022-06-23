@@ -51,12 +51,6 @@ public class ContactList extends AppCompatActivity {
             startActivity(i);
         });
 
-        FloatingActionButton toSettings = findViewById(R.id.toSettings);
-        toSettings.setOnClickListener(v->{
-            Intent i = new Intent(this, Settings.class);
-            startActivity(i);
-        });
-
         lvContacts.setOnItemClickListener((adapterView, view, i, l) -> {
             Intent intent = new Intent(this, Chat.class);
             intent.putExtra("conUN", contacts.get(i).getIdName());

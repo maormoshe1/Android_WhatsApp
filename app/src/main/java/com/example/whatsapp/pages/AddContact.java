@@ -28,12 +28,7 @@ public class AddContact extends AppCompatActivity {
     private String conUN;
     private String conDN;
     private String conServer;
-//    private EditText etAddConUN;
-//    private EditText etAddConDN;
-//    private EditText etAddConServer;
-//    private TextInputLayout tilAddConUN;
-//    private TextInputLayout tilAddConDN;
-//    private TextInputLayout tilAddConServer;
+    private TextInputLayout tilAddConServer;
 
     private boolean validation(){
         EditText etAddConUN = findViewById(R.id.etAddConUN);
@@ -41,7 +36,7 @@ public class AddContact extends AppCompatActivity {
         EditText etAddConServer = findViewById(R.id.etAddConServer);
         TextInputLayout tilAddConUN = findViewById(R.id.tilAddConUN);
         TextInputLayout tilAddConDN = findViewById(R.id.tilAddConDN);
-        TextInputLayout tilAddConServer = findViewById(R.id.tilAddConServer);
+        tilAddConServer = findViewById(R.id.tilAddConServer);
         conUN = etAddConUN.getText().toString();
         conDN = etAddConDN.getText().toString();
         conServer = etAddConServer.getText().toString();
@@ -99,7 +94,7 @@ public class AddContact extends AppCompatActivity {
                 Connection connection = new Connection(UN, conUN, conServer, null);
                 //addContactAPI.addContact(token, contact, contactDao);
                 invitationAPI = new InvitationAPI(conServer);
-                invitationAPI.inviteContact(connection, token, contact, contactDao);
+                invitationAPI.inviteContact(connection, token, contact, contactDao, tilAddConServer);
                 //contactDao.insert(contact);
                 //TO DO msg contact added
             }

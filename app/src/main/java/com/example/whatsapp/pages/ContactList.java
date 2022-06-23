@@ -31,11 +31,11 @@ public class ContactList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
+        UN = getIntent().getStringExtra("username");
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,UN)
                 .allowMainThreadQueries().build();
         contactDao = db.postDao();
         token = getIntent().getStringExtra("token");
-        UN = getIntent().getStringExtra("username");
         contactListAPI = new ContactListAPI();
         contacts = new ArrayList<>();
         ListView lvContacts = findViewById(R.id.lvContacts);

@@ -21,7 +21,6 @@ import java.util.List;
 public class AddContact extends AppCompatActivity {
     private AppDB db;
     private ContactDao contactDao;
-    //private AddContactAPI addContactAPI;
     private InvitationAPI invitationAPI;
     private String token;
     private String UN;
@@ -80,23 +79,19 @@ public class AddContact extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
 
-        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
+        UN = getIntent().getExtras().getString("username");
+        db = Room.databaseBuilder(getApplicationContext(), AppDB.class,UN)
                 .allowMainThreadQueries().build();
         contactDao = db.postDao();
-        //addContactAPI = new AddContactAPI();
         token = getIntent().getExtras().getString("token");
-        UN = getIntent().getExtras().getString("username");
         Button addContact = findViewById(R.id.addContact);
 
         addContact.setOnClickListener(v->{
             if (validation()) {
                 Contact contact = new Contact(conUN, conDN, conServer, null, null);
                 Connection connection = new Connection(UN, conUN, conServer, null);
-                //addContactAPI.addContact(token, contact, contactDao);
                 invitationAPI = new InvitationAPI(conServer);
                 invitationAPI.inviteContact(connection, token, contact, contactDao, tilAddConServer);
-                //contactDao.insert(contact);
-                //TO DO msg contact added
             }
         });
     }

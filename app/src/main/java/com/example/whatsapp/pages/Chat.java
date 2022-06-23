@@ -50,10 +50,12 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
+        UN = getIntent().getStringExtra("username");
+        conUN = getIntent().getStringExtra("conUN");
+        dbContact = Room.databaseBuilder(getApplicationContext(), AppDB.class,UN)
                 .allowMainThreadQueries().build();
         contactDao = dbContact.postDao();
-        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,"ehDB")
+        dbChat = Room.databaseBuilder(getApplicationContext(), AppDB.class,UN)
                 .allowMainThreadQueries().build();
         messageDao = dbChat.postMsgDao();
         messages = new ArrayList<>();
@@ -66,8 +68,6 @@ public class Chat extends AppCompatActivity {
         adapter = new MessageAdapter(this, messages);
         lvChat.setAdapter(adapter);
 
-        conUN = getIntent().getStringExtra("conUN");
-        UN = getIntent().getStringExtra("username");
         contact = contactDao.get(conUN);
         transferAPI = new TransferAPI(contact.getServer());
         DN = contact.getNickName();

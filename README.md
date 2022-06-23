@@ -16,5 +16,7 @@ for adding a contact
 
 Unfortunately we were unable to get the message
 to appear right after it was sent
-But you have to return back and enter again to the chat 
-so that you can see all the messages on the chat screen
+But you have to perform a refresh (exit and login to some page)
+so that you can see all the messages on the chat screen.
+Also, if you switch between users in order to load the contacts,
+you must perform a refresh.

@@ -16,5 +16,5 @@ for adding a contact
 
 Unfortunately we were unable to get the message
 to appear right after it was sent
-But you have to return back and enter again to the chat twice
+But you have to return back and enter again to the chat 
 so that you can see all the messages on the chat screen

@@ -1,5 +1,6 @@
 package com.example.whatsapp.api;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.example.whatsapp.Contact;
@@ -7,6 +8,7 @@ import com.example.whatsapp.Message;
 import com.example.whatsapp.MyApplication;
 import com.example.whatsapp.R;
 import com.example.whatsapp.room.ContactDao;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -25,13 +27,16 @@ public class AddContactAPI {
                 .addConverterFactory(GsonConverterFactory.create()).build();
         webServerAPI = retrofit.create(WebServerAPI.class);
     }
-    public void addContact(String token, Contact contact, ContactDao contactDao){
+    public void addContact(String token, Contact contact, ContactDao contactDao,
+                           TextInputLayout tilAddConServer){
         Call<Void> call = webServerAPI.addContact(token, contact);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 response.body();
                 contactDao.insert(contact);
+                tilAddConServer.setBoxBackgroundColor(Color.GREEN);
+                tilAddConServer.setError("the contact added successfully");
                 //TODO added contact msg
             }
 

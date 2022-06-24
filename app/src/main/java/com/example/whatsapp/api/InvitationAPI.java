@@ -36,7 +36,7 @@ public class InvitationAPI {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 response.body();
                 if (response.code() != 400) {
-                    addContactAPI.addContact(token, contact, contactDao);
+                    addContactAPI.addContact(token, contact, contactDao, tilAddConServer);
                 }
                 else{
                     tilAddConServer.setError("This username does not exist on the server");

@@ -72,7 +72,6 @@ public class Chat extends AppCompatActivity {
         DN = contact.getNickName();
         tvDN.setText(DN);
 
-        msgAPI.getMessages(token, conUN, messageDao);
         messages.clear();
         messages.addAll(messageDao.getByUN(conUN));
         adapter.notifyDataSetChanged();
@@ -84,21 +83,23 @@ public class Chat extends AppCompatActivity {
             if (!msg.equals("")) {
                 etSend.setText("");
                 time = sdf.format(new Date());
-                Message postMsg = new Message(null, time, msg, null);
+                Message postMsg = new Message(conUN, time, msg, true);
                 Connection connection = new Connection(UN, conUN, null, msg);
                 transferAPI.transferMessage(connection, token, conUN, postMsg, messageDao);
-                msgAPI.getMessages(token, conUN, messageDao);
-                contactListAPI.getContacts(token, contactDao);
+                messageDao.insert(postMsg);
                 messages.clear();
                 messages.addAll(messageDao.getByUN(conUN));
                 adapter.notifyDataSetChanged();
+                contact.setLast(msg);
+                contact.setLastdate(time);
+                contactDao.update(contact);
             }
         });
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onPause(){
+        super.onPause();
         msgAPI.getMessages(token, conUN, messageDao);
         messages.clear();
         messages.addAll(messageDao.getByUN(conUN));

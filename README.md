@@ -10,13 +10,18 @@ in front of which the application works
 The default server is: 10.0.2.2:5132
 After logging in or registering, the Contacts page opens
 On this page you can click on a contact
-and go to the chat page with him
-Also below is a button that opens a page
-for adding a contact
+and go to the chat page with him.
+Also in the Contacts page below is a button
+that opens a page for adding a contact.
+If you insert an invalid or unavailable server
+after a few seconds it will alert you
+(For other things the alert will be immediate)
 
-Unfortunately we were unable to get the message
-to appear right after it was sent
-But you have to perform a refresh (exit and login to some page)
+Unfortunately we were unable to get the messages
+immediatly In the transition between chats
+you have to perform a refresh (exit and login to some page)
 so that you can see all the messages on the chat screen.
-Also, if you switch between users in order to load the contacts,
-you must perform a refresh.
+Also, if you switch between users,
+you will see the contacts that exist in Room
+just after refresh you will see the real data
+that exis on the server

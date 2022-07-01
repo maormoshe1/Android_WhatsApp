@@ -1,4 +1,5 @@
 # Android_WhatsApp
+open cmd and execute: git clone https://github.com/maormoshe1/Android_WhatsApp.git
 The page where the app opens is
 the login page
 You can switch between the registration page

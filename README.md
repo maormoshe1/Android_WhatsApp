@@ -1,5 +1,11 @@
 # Android_WhatsApp
-open cmd and execute: git clone https://github.com/maormoshe1/Android_WhatsApp.git
+1. open cmd and execute: git clone https://github.com/maormoshe1/Android_WhatsApp.git
+2. open android.studio
+3. file->open-> .../Android_WhatsApp (the path of the program) 
+4. install an emulator (select the default option)
+5. run the program
+Before using the program, run the server...
+
 The page where the app opens is
 the login page
 You can switch between the registration page
@@ -19,7 +25,7 @@ after a few seconds it will alert you
 (For other things the alert will be immediate)
 
 Unfortunately we were unable to get the messages
-immediatly In the transition between chats
+immediately In the transition between chats
 you have to perform a refresh (exit and login to some page)
 so that you can see all the messages on the chat screen.
 Also, if you switch between users,
